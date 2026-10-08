@@ -4,8 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script>
+        function evaluarMayorMenor() {
+            let numero1= parseInt(document.getElementById("cajanumero1").value);
+            let numero2= parseInt(document.getElementById("cajanumero2").value);
+            let numero3= parseInt(document.getElementById("cajanumero3").value);
+            //declaraos una varable para guardar el mayor y el menor
+            let mayor= 0;
+            let menor= 0;
+            //evaluamos que numero de los tres es el mayor
+            if(numero1>numero2 && numero1>numero3){
+                mayor= numero1;
+            }else if(numero2>numero1 && numero2>numero3){
+                mayor= numero2;
+            }else{
+                    mayor= numero3;
+            }
+
+            //evaluamos el numero menor de los tres
+                if(numero1<numero2 && numero1<numero3){
+                    menor= numero1;
+                }else if(numero2<numero1 && numero2<numero3){
+                    menor= numero2;
+                }else{
+                    menor= numero3;
+                }
+
+                //recuperamos el resultado del html
+                let resultado= document.getElementById("resultado");
+                //mostramos el mayor y menor en el resultado
+                resultado.innerText= "El numero mayor es: " + mayor + " y el numero menor es: " + menor;
+
+            }
+            
+    </script>
 </head>
 <body>
-    
+    <h1>Numero mayor menor</h1>
+    Numero 1: <input type="number" id="cajanumero1"/>
+    <br/>
+    Numero 2: <input type="number" id ="cajanumero2"/>
+    <br/>
+    Numero 3: <input type="number" id ="cajanumero3"/>
+    <br/>
+    <button onclick="evaluarMayorMenor()">Mayor/Menor</button>
+    <h3 id="resultado">El resultado es</h3>
 </body>
 </html>
