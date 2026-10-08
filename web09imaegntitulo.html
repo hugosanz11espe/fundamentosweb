@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        img{
+            width: 250px;
+            height: 250px;
+
+        }
+    </style>
+    <script>
+        function cambiarImagen(){
+            //recuperamos el elemento <img> llamado imagen
+            let img= document.getElementById("imagen");
+            //cambiamos una imagen por otra imagen
+            img.src="images/mercedes.webp";
+
+        }
+
+        function salirimagen() {
+            //recuperamos el elementos <img> llamado imagen
+            let img= document.getElementById("imagen");
+            img.src= "images/galan.webp";
+        }
+
+        function cambiarTexto() {
+            let titulo= document.getElementById("titulo");
+            //cambiamos el texto del titulo por otro valor
+            titulo.innerText = "He cambiado!!!!";
+        }
+    </script>
+</head>
+<body>
+    <h1>Elementos HTML y propiedas</h1>
+    <h2 id="titulo" onclick="cambiarTexto()">Soy un texto nuevo..</h2>
+    <img src="images/galan.webp" id="imagen" 
+    onmouseover="cambiarImagen()"
+    onmouseout="salirimagen()"/>
+    
+</body>
+</html>
