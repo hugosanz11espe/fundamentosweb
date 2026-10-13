@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conjetura de Collatz</title>
+    <script>
+        function generarCollatz() {
+            const listaNumeros = document.getElementById("listanumeros");
+            const cajaNumero = document.getElementById("cajanumero");
+            const mensaje = document.getElementById("mensaje");
+            let numero = cajaNumero.valueAsNumber;
+
+            listaNumeros.replaceChildren();
+            mensaje.textContent = "";
+
+            if (!Number.isSafeInteger(numero) || numero < 1) {
+                mensaje.textContent = "Introduce un número entero positivo.";
+                return;
+            }
+
+            const secuencia = [numero];
+            while (numero !== 1) {
+                numero = numero % 2 === 0 ? numero / 2 : 3 * numero + 1;
+                if (!Number.isSafeInteger(numero)) {
+                    mensaje.textContent = "El cálculo supera el rango de números admitido.";
+                    return;
+                }
+                secuencia.push(numero);
+            }
+
+            for (const valor of secuencia) {
+                const elemento = document.createElement("li");
+                elemento.textContent = valor;
+                listaNumeros.appendChild(elemento);
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Conjetura de Collatz</h1>
+    <form onsubmit="generarCollatz(); return false;">
+        <label for="cajanumero">Introduce un número entero positivo:</label>
+        <input type="number" id="cajanumero" min="1" step="1" required>
+        <button type="submit">Calcular Collatz</button>
+    </form>
+    <p id="mensaje" role="alert"></p>
+    <ul id="listanumeros"></ul>
+</body>
+</html>

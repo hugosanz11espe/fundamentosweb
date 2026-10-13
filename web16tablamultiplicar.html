@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabla de multiplicar</title>
+</head>
+<body>
+    <h1>Tabla de multiplicar</h1>
+    <label for="numero">Escribe un número:</label>
+    <input type="number" id="numero" step="any">
+    <button type="button" id="calcular">Mostrar tabla</button>
+    <p id="error" role="alert"></p>
+    <div id="resultado" aria-live="polite"></div>
+
+    <script>
+        const entrada = document.getElementById("numero");
+        const boton = document.getElementById("calcular");
+        const resultado = document.getElementById("resultado");
+        const error = document.getElementById("error");
+
+        boton.addEventListener("click", () => {
+            const numero = entrada.valueAsNumber;
+            resultado.replaceChildren();
+            error.textContent = "";
+
+            if (entrada.value === "" || !Number.isFinite(numero)) {
+                error.textContent = "Escribe un número válido.";
+                return;
+            }
+
+            const tabla = document.createElement("ul");
+            for (let multiplicador = 1; multiplicador <= 10; multiplicador++) {
+                const linea = document.createElement("li");
+                linea.textContent = `${numero} × ${multiplicador} = ${numero * multiplicador}`;
+                tabla.appendChild(linea);
+            }
+            resultado.appendChild(tabla);
+        });
+    </script>
+</body>
+</html>
