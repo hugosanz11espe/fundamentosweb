@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function cambiarImagen() {
+            //debems recuperar un array con todas las imagenes
+            let imagenes= document.getElementsByTagName("img");
+            //recorremos el array y cambiamos el src
+            for(let i=0; i<imagenes.length; i++){
+              //almacenamos cada img en una variable
+              let imagen = imagenes[i];
+              imagen.src="pala3.jpg";
+            }
+
+        }
+    </script>
+    <style>
+        img{
+            width: 100px;height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Array imágenes</h1>
+    <button onclick="cambiarImagen()">Cambiar imagen </button>
+    <img src="pala.jpeg "/> <img src="pala.jpeg "/>
+    <img src="pala.jpeg"/>  <img src="pala.jpeg"/>
+
+   
+</body>
+</html>

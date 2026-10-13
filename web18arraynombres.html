@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        let arraynombres= ["Ana", "Diana", "Sofia"];
+        function addName() {
+            //queremos añadir un nombre nuevo al array
+            //recuperamos la caja con el nombre
+            let cajanombre= document.getElementById("cajanombre");
+            let nombre = cajanombre.value;
+            arraynombres.push(nombre);
+            dibujarNombres();
+        }
+        function dibujarNombres() {
+            let lista= document.getElementById("listanombres");
+            let contenido= "";
+            for (let nombre of arraynombres) {
+                contenido += "<li>" + nombre + "</li>";
+            }
+            lista.innerHTML = contenido;
+        }
+
+        function eliminarNombre() {
+            let cajaindice= document.getElementById("cajaindice");
+            let posicion = parseInt(cajaindice.value);
+            arraynombres.splice(posicion, 1);
+            dibujarNombres();
+        
+        }
+    </script>
+</head>
+<body>
+    <h1>Array de nombres</h1>
+    Nuevo nombre: <input type)="text" id="cajanombre"/>
+    <button onclick="addName()">Añadir nombre</button><br/>
+    Indice a eliminar: <input type="number" id="cajaindice"/>
+    <button onclick="dibujarNombres()">Dibujar nombres</button><br/>
+    <button onclick="eliminarNombre()">Eliminar nombre</button><br/>
+    <ul id="listanombres"></ul>
+</body>
+</html>
