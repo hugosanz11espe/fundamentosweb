@@ -18,13 +18,30 @@
             }
             //reccuperamos el elemento resultado
             let resultado = document.getElementById("resultado");
-            resultado.innerHTML ="la suma es" + suma;
+            resultado.innerHTML ="la suma es: " + suma;
+        }
+           window.onload= function() {
+            generarNumeros();
+        }
+
+
+        function generarNumeros() {
+            //console.log(random);
+            //quiero recorrer cada caja y poner un numero aleatorio
+            let cajas= document.getElementsByTagName("input");
+            for (let input of cajas){
+                //genera un numero aleatorio
+                let random= parseInt(Math.random() *100) + 1;
+                input.value = random;
+            }
+
         }
     </script>
 </head>
 <body>
     <h1>Sumar numeros en cajas</h1>
     <h2 id="resultado"></h2>
+    <button onclick="generarNumeros()">Generar números</button>
     <button onclick="sumarNumerosCajas()">Sumar números</button>
         <input type="number"/>
         <input type="number"/>

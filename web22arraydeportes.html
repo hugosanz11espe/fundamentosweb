@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function mostrarFavoritos() {
+            ///debemos buscar todos los input
+            let inputs= document.getElementsByTagName("input");
+            let favoritos= [];
+            for (let input of inputs) {
+                if (input.checked) {
+                    favoritos.push(input.value);
+                }
+            }
+            let resultado= document.getElementById("resultado");
+            resultado.innerHTML= "Tus deportes favoritos son: " + favoritos.join(", ");
+
+
+        }
+    </script>
+</head>
+<body>
+    <h1>Deportes favoritos</h1>
+    <button onclick="mostrarFavoritos()">Ver favoritos</button><br/>
+    <input type="checkbox" value="Futbol"/>Futbol<br/>
+    <input type="checkbox" value="Baloncesto"/>Baloncesto<br/>
+    <input type="checkbox" value="Tenis"/>Tenis<br/>
+    <input type="checkbox" value="Pádel"/>Pádel<br/>
+    <input type="checkbox" value="Dardos"/>Dardos<br/>
+    <h2 id="resultado"></h2>
+</body>
+</html>
