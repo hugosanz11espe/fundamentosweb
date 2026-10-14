@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seleccionar imagen</title>
+    <script>
+        const imagenes = [
+            "cr7.webp",
+            "galan.webp",
+            "galan2.jpg",
+            "mercedes.webp",
+            "pala.jpeg",
+            "pala2.webp",
+            "pala3.jpg"
+        ];
+
+        function cargarImagenes() {
+            const selector = document.getElementById("selectimagenes");
+
+            for (const nombreImagen of imagenes) {
+                const opcion = document.createElement("option");
+                opcion.value = nombreImagen;
+                opcion.textContent = nombreImagen;
+                selector.appendChild(opcion);
+            }
+        }
+
+        function seleccionarImagen() {
+            const selector = document.getElementById("selectimagenes");
+            const imagen = document.getElementById("imagenSeleccionada");
+            const nombreImagen = selector.value;
+             
+
+            imagen.src = "images/" + nombreImagen;
+            imagen.alt = nombreImagen;
+            imagen.hidden = false;
+           
+        }
+
+        window.addEventListener("DOMContentLoaded", cargarImagenes);
+    </script>
+    <style>
+        img {
+            width:200px; height:200px;
+        
+        }
+    </style>
+</head>
+<body>
+    <h1>Selección de imágenes</h1>
+    <label for="selectimagenes">Seleccione una imagen :</label>
+    <select id="selectimagenes"></select>
+    <button type="button" onclick="seleccionarImagen()">Mostrar imagen</button>
+    <br/>
+    <img id="imagenSeleccionada" hidden> 
+    
+  
+</body>
+</html>
