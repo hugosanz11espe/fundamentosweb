@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Array de personas completo</title>
+    <script>
+        //Declaramos el array para poder utilizarlo en todas las funciones
+        let arraypersonas = [];
+
+        function crearPersona() {
+            let cajanombre = document.getElementById("cajanombre");
+            let cajaemail = document.getElementById("cajaemail");
+            let nombre = cajanombre.value.trim();
+            let email = cajaemail.value.trim();
+
+            if (nombre === "" || email === "") {
+                alert("Escribe el nombre y el email de la persona.");
+                return;
+            }
+            if (!cajaemail.checkValidity()) {
+                cajaemail.reportValidity();
+                return;
+            }
+
+            //Creamos una persona y guardamos sus datos
+            let persona = new Object();
+            persona.nombre = nombre;
+            persona.email = email;
+
+            //Añadimos la persona al array
+            arraypersonas.push(persona);
+
+            //Actualizamos el número de personas
+            let titulonumero = document.getElementById("titulonumero");
+            titulonumero.innerText = "Número de personas: " + arraypersonas.length;
+
+            cajanombre.value = "";
+            cajaemail.value = "";
+            cajanombre.focus();
+        }
+
+        function dibujarPersona() {
+            let tabla = document.getElementById("tablapersonas");
+            tabla.replaceChildren();
+
+            //Recorremos todas las personas y dibujamos una fila por cada una
+            for (let persona of arraypersonas) {
+                let fila = document.createElement("tr");
+                let celdaNombre = document.createElement("td");
+                let celdaEmail = document.createElement("td");
+                celdaNombre.textContent = persona.nombre;
+                celdaEmail.textContent = persona.email;
+                fila.appendChild(celdaNombre);
+                fila.appendChild(celdaEmail);
+                tabla.appendChild(fila);
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Array personas completo</h1>
+    <h3 style="color:black" id="titulonumero">Número de personas: 0</h3>
+    <button onclick="crearPersona()">Crear persona</button>
+    <button onclick="dibujarPersona()">Dibujar persona</button><br/>
+    Nombre: <input type="text" id="cajanombre"/><br/>
+    Email: <input type="email" id="cajaemail"/><br/>
+    <table border="2">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody id="tablapersonas"></tbody>
+    </table>
+
+
+
+
+</body>
+</html>
