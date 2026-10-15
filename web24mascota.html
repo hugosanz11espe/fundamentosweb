@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function generarMascota() {
+            //declaramos un objeto mascota
+            let cajaraza= document.getElementById("cajaraza");
+            let cajonombre= document.getElementById("cajanombre");
+            let cajaedad= document.getElementById("cajaedad");
+          
+            let mascota= new Object();
+            mascota.raza = cajaraza.value;
+            mascota.nombre = cajanombre.value;
+            mascota.edad = cajaedad.value;
+            //recuperamos el titulo resultado
+            let resultado = document.getElementById("resultado");
+            //pintamos la mascota
+            resultado.innerText = mascota.nombre
+            +", " + mascota.raza + ", " + mascota.edad;
+            
+
+        }
+      
+        function generarOtraMascota() {
+            //creamos una mascota mediante sintaxis json
+            //capturamos cada caja
+            let cajaraza= document.getElementById("cajaraza");
+            let cajonombre= document.getElementById("cajanombre");
+            let cajaedad= document.getElementById("cajaedad");
+            //capturamos el resultado
+
+
+            let mascota = {
+                raza: cajaraza.value,
+                nombre: cajanombre.value,
+                edad: cajaedad.value,
+
+            }
+            let resultado = document.getElementById("resultado");
+            resultado.innerText = mascota.nombre
+            +", " + mascota.raza +", " + mascota.edad;
+
+
+
+
+        }
+
+
+
+
+
+    </script>
+</head>
+<body>
+    <h1>Objeto mascota</h1>
+    <button onclick="generarMascota()">Mostrar mascota</button>
+    <button onclick="generarOtraMascota()">Otra mascota</button>
+    <h2 style="color:rgb(81, 81, 83)" id="resultado"></h2>
+    Nombre: <input type="text" id="cajanombre"/>
+    Raza: <input type="text" id="cajaraza"/>
+    Edad: <input type="text" id="cajaedad"/>
+    <br/>
+   
+
+</body>
+</html>
