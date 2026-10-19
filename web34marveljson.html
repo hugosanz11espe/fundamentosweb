@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Héroe o villano?</title>
+    <script>
+        async function cargarHeroes() {
+            let path = "documentos/marvel.json";
+            let response = await fetch(path);
+            let datos = await response.json();
+            let filas = "";
+            //RECORREMOS TODOS LOS DATOS DE LOS HEROES
+            for (let hero of datos.Heroes){
+                filas += `
+                    <tr>
+                        <td>${hero.hero}</td>
+                        <td>${hero.name}</td>
+                        <td>
+                            <a href="${hero.link}">${hero.link}</a>
+                        </td>
+                        <td>
+                            <img src="${hero.img}"/>
+                        </td>
+                    </tr>
+                `
+            }
+            //recuperamos la tabla
+            let tabla = document.getElementById("tablamarvel");
+            tabla.innerHTML = filas;
+        }
+
+        async function cargarVillanos() {
+            let path = "documentos/marvel.json";
+            let response = await fetch(path);
+            let datos = await response.json();
+            let filas = "";
+            for (let villano of datos.Villains){
+                filas += `
+                    <tr>
+                        <td>${villano.hero}</td>
+                        <td>${villano.name}</td>
+                        <td>
+                            <a href="${villano.link}">${villano.link}</a>    
+                        </td>
+                        <td>
+                            <img src="${villano.img}"/>
+                        </td>
+                    </tr>
+                `
+            }
+            let tabla = document.getElementById("tablamarvel");
+            tabla.innerHTML = filas;
+        }
+    </script>
+    <style>
+        img {
+            width: 150px; height: 150px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Marvel Json</h1>
+    <button onclick="cargarHeroes()">Heroes</button>
+    <button onclick="cargarVillanos()">Villanos</button>
+    <table border="1" id="tablamarvel"></table>
+</body>
+</html>

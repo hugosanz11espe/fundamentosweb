@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        async function leerServicioCustomers() {
+            //antes era path porque era una ruta, ahora utilizamos URL 
+            let url = "https://services.odata.org/V4/Northwind/Northwind.svc/Customers";
+            let response = await fetch(url);
+            let datos = await response.json();
+            console.log(datos);
+            //necesitamos un contenido para el dibujo HTML
+            let contenido = "";
+            //recorremos todo los clientes/customers
+            for (let cliente of datos.value){
+                contenido += `
+                <li> ${cliente.ContactName} </li>
+                `
+            }
+            let lista = document.getElementById("listaclientes");
+            lista.innerHTML = contenido;
+        }
+    </script>
+</head>
+<body>
+    <h1>Service Api Customers</h1>
+    https://services.odata.org/V4/Northwind/Northwind.svc/
+    <button onclick="leerServicioCustomers()">Servicio Customers</button>
+    <ul id="listaclientes"></ul>
+</body>
+</html>

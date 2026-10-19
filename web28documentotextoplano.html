@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        async function leerFicheroTexto() {
+            let path = "documentos/notas.txt";
+            console.log("pidiendo datos");
+            //con fetch leemos los datos del fichero
+           //debemos indicar que espere a una respuesta
+            let response = await fetch(path);
+            //tenemos que convertir las respuesta a un formato
+            console.log("convirtiendo datos")
+            //puede tardar en convertir los datos de la respuesta
+            let datos = await response.text();
+            //ya tenemos el contenido del fichero
+            console.log("Fin de lectura");
+            console.log(datos);
+            //mostramos el contenido
+            let resultado =document.getElementById("resultado");
+            resultado.innerText = datos;
+            
+
+        }
+    </script>
+</head>
+<body>
+    <h1>Leer documento texto plano</h1>
+    <button onclick="leerFicheroTexto()">leer texto plano</button>
+    <p id="resultado" style="color:rgb(149, 95, 25)"></p>
+</body>
+</html>

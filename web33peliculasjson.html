@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        async function cargarPeliculas() {
+            let path ="documentos/cine.json";
+            let response = await fetch(path);
+            let datos = await response.json();
+            console.log(datos);
+            let contenido = "";
+            for(let peli of datos.Peliculas){
+                contenido += `
+                <option> ${peli.Titulo} </option>
+                `
+            }
+
+            let select = document.getElementById("selectpelicula");
+            select.innerHTML = contenido;
+
+        }
+        async function buscarPelicula() {
+            let path = "documentos/cine.json";
+            let response = await fetch(path); 
+            let datos = await response.json();
+            console.log(datos);
+            let select = document.getElementById("selectpelicula");
+            let nombrepeli = select.value;
+            for(let peli of datos.Peliculas){
+                if(peli.Titulo == nombrepeli){
+                    let resultado = document.getElementById("resultado");
+                    resultado.innerText = peli.Argumento;
+                    let director = document.getElementById("director");
+                    director.innerText = "Director:  " + peli.Director;
+                    let duracion =document.getElementById("duracion");
+                    duracion.innerText = "Duracion:  " + peli.Duracion;
+                    let video = document.getElementById("video");
+                    video.innerHTML = `
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/${peli.YouTube}" title="YouTube video?si=cvwmH0d0E7L08mTV" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    `
+
+            }
+
+        }
+
+    }
+
+    </script>
+</head>
+<body>
+    <h1>Peliculas JSON</h1>
+    <button onclick= "cargarPeliculas()">Cargar peliculas</button>
+    Seleccione peliculas
+    <select id="selectpelicula"></select>
+    <button onclick="buscarPelicula()">Buscar pelicula</button>
+    <p id = "resultado"></p>
+    <p id = "director"></p>
+    <p id ="duracion"></p>
+    <p id ="video"></p>
+    
+
+    
+
+
+</body>
+</html>
