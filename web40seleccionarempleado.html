@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        async function cargarApellidos() {
+            let select = document.getElementById("selectempleado");
+            let div = document.getElementById("datosempleado");
+            let url = "https://apiempleadosfullstack.azurewebsites.net/api/Empleados";
+            try {
+                let response = await fetch(url);
+                if (!response.ok) {
+                    div.innerHTML = `<p>Error al cargar empleados: ${response.status}</p>`;
+                    return;
+                }
+
+                let datos = await response.json();
+                let opciones = `<option value="">Seleccione un apellido</option>`;
+                for (let empleado of datos) {
+                    opciones += `
+                        <option value="${empleado.idEmpleado}">${empleado.apellido}</option>
+                    `;
+                }
+                select.innerHTML = opciones;
+                div.innerHTML = "";
+            } catch (error) {
+                div.innerHTML = "<p>No se pudieron cargar los empleados.</p>";
+                console.error(error);
+            }
+        }
+
+        async function buscarEmpleado() {
+            let select = document.getElementById("selectempleado");
+            let idempleado = select.value;
+            let div = document.getElementById("datosempleado");
+
+            if (idempleado === "") {
+                div.innerHTML = "<p>Primero seleccione un apellido.</p>";
+                return;
+            }
+
+            let url = `https://apiempleadosfullstack.azurewebsites.net/api/Empleados/${idempleado}`;
+
+            try {
+                let response = await fetch(url);
+                if (!response.ok) {
+                    div.innerHTML = `<p>Error al buscar empleado: ${response.status}</p>`;
+                    return;
+                }
+
+                let datos = await response.json();
+                div.innerHTML = `
+                    <p>Id: ${datos.idEmpleado}</p>
+                    <p>Apellido: ${datos.apellido}</p>
+                    <p>Oficio: ${datos.oficio}</p>
+                    <p>Salario: ${datos.salario}</p>
+                    <p>Departamento: ${datos.departamento}</p>
+                    <p>Nombre: ${datos.nombre}</p>
+                `;
+            } catch (error) {
+                div.innerHTML = "<p>No se pudo buscar el empleado.</p>";
+                console.error(error);
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Seleccionar empleado API</h1>
+    <button onclick="cargarApellidos()">Cargar apellidos</button>
+    <br/>
+    Seleccione un apellido:
+    <select id="selectempleado">
+        <option value="">Seleccione un apellido</option>
+    </select>
+    <button onclick="buscarEmpleado()">Buscar empleado</button>
+    <div id="datosempleado"></div>
+</body>
+</html>
