@@ -16,18 +16,51 @@
             //recorremos todos los proveedores/suppliers
             for (let proveedor of datos.value) {
                 contenido += `
-                <li> ${proveedor.ContactName} </li>
+                <li> ${proveedor.SupplierID} - ${proveedor.ContactName}</li>
                 `
+            
+
             }
             let lista = document.getElementById("listasuppliers");
             lista.innerHTML = contenido;
         }
+            async function buscarSupplier() {
+                
+            let url = "https://services.odata.org/V4/Northwind/Northwind.svc/Suppliers";
+                let response = await fetch(url);
+                let datos = await response.json();
+                let cajaid = document.getElementById("cajaid");
+                let idsupplier = cajaid.value;
+                let div = document.getElementById("datossupplier");
+                for(let s of datos.value) {
+                    //debemos comparar el id de la caja con el id del supplier
+                    if(idsupplier == s.SupplierID){
+                       
+                        div.innerHTML = `
+                        <p> Compañia: ${s.CompanyName} </p>
+                        <p> Nombre: ${s.ContactName} </p>
+                        <p> Dirección: ${s.Address} </p>
+                        <p> Ciudad: ${s.City} </p>
+                        <p> País: ${s.Country} </p>
+                        <p> Teléfono: ${s.Phone}</p>
+                        <p> Fax: ${s.Fax}</p>
+
+                        `
+
+                    }
+                }
+            }
+
     </script>
 </head>
 <body>
     <h1>Service Api Suppliers</h1> 
-    https://services.odata.org/V4/Northwind/Northwind.svc/
-    <button onclick="leerServicioSuppliers()">Servicio Suppliers</button>
+    
+    Introduzca ID: <input type="number" id="cajaid"/>
+    <button onclick="leerServicioSuppliers()">Servicio Suppliers</button><br/>
+    <button onclick="buscarSupplier()">Buscar Supplier</button><br/>
+    <div id="datossupplier"></div>
+
     <ul id="listasuppliers"></ul>
 
 </body>
