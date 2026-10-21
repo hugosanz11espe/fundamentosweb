@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CALLATE LA BOOOOOCA</title>
+    <script>
+        let url= "https://apiempleadosfullstack.azurewebsites.net/"
+        async function cargarOficios() {
+            //construimos nuestra peticion
+            let request = url + "api/Empleados/oficios";
+            let response = await fetch(request);
+            let datos = await response.json();
+            let options = "";
+            for(let oficio of datos){
+                //dibujamos los options
+                options += `
+                    <option> ${oficio} </option>
+                `
+                 }
+                 let select = document.getElementById("selectoficio")
+                 select.innerHTML = options;
+
+
+        }
+        
+        async function buscarEmpleados() {
+            //recuperamos el select del html
+            let select = document.getElementById("selectoficio");
+            let oficio = select.value;
+            //construimos la peticion
+            let request = url + "api/empleados/empleadosoficio/" + oficio;
+            let response = await fetch(request);
+            let datos = await response.json();
+            let contenido = "";
+            for(let empleado of datos){ 
+                contenido += `
+                <li> ${empleado.apellido} </li> </br>
+                `
+            }
+            let lista = document.getElementById("listaempleados");
+            lista.innerHTML = contenido;
+        }
+
+    </script>
+</head>
+<body>
+    <h1>Empleados oficio</h1>
+    <button onclick="cargarOficios()">Cargar oficios</button>
+    Seleccione un oficio:
+    <select id="selectoficio"></select>
+    <button onclick="buscarEmpleados()">Buscar empleados</button>
+    <ul id="listaempleados"></ul>
+</body>
+</html>
