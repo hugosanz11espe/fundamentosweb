@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        let urlDepartamentos = "https://apicruddepartamentoscore.azurewebsites.net/";
+        let urlEmpleados = "https://apiempleadosfullstack.azurewebsites.net/";
+
+        async function cargarDepartamentos() {
+            let request = urlDepartamentos + "api/departamentos";
+            let response = await fetch(request);
+            let datos = await response.json();
+            let options = "";
+            for (let departamento of datos) {
+                options += `
+                    <option value="${departamento.numero}">${departamento.nombre}</option>
+                `;
+            }
+
+            let select = document.getElementById("selectdepartamento");
+            select.innerHTML = `<option value="">Seleccione un departamento</option>` + options;
+        }
+
+        async function buscarEmpleados() {
+            let select = document.getElementById("selectdepartamento");
+            let numero = select.value;
+            let tabla = document.getElementById("tablaempleados");
+
+            if (numero == "") {
+                tabla.innerHTML = "";
+                return;
+            }
+
+            let request = urlEmpleados + "api/Empleados/EmpleadosDepartamento/" + numero;
+            let response = await fetch(request);
+            let datos = await response.json();
+            let filas = "";
+            for (let empleado of datos) {
+                filas += `
+                    <tr>
+                        <td>${empleado.idEmpleado}</td>
+                        <td>${empleado.apellido}</td>
+                        <td>${empleado.oficio}</td>
+                        <td>${empleado.salario}</td>
+                        <td>${empleado.departamento}</td>
+                    </tr>
+                `;
+            }
+
+            tabla.innerHTML = filas;
+        }
+
+        window.onload = function() {
+            cargarDepartamentos();
+        }
+    </script>
+</head>
+<body>
+    <h1>Empleados por departamento</h1>
+    Seleccione un departamento:
+    <select id="selectdepartamento" onchange="buscarEmpleados()"></select>
+    <table border="2">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Apellido</th>
+                <th>Oficio</th>
+                <th>Salario</th>
+                <th>Departamento</th>
+            </tr>
+        </thead>
+        <tbody id="tablaempleados"></tbody>
+    </table>
+</body>
+</html>

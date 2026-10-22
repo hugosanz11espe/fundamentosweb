@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        let url ="https://apicruddepartamentoscore.azurewebsites.net/";
+        async function insertarDepartamento() {
+            let request= url + "api/departamentos";
+            let cajaid = document.getElementById("cajaid");
+            let cajonombre = document.getElementById("cajanombre");
+            let cajalocalidad= document.getElementById("cajalocalidad");
+
+            //necesitamos un objeto departamento
+            let nuevo= {
+                "numero": parseInt(cajaid.value),
+                "nombre": cajanombre.value,
+                "localidad": cajalocalidad.value
+            }
+            //utilizamos JSON.stringify para convertir el objeto a JSON
+            let data = JSON.stringify(nuevo);
+            //llamamos a nuestro servicio conn un post
+            let response = await fetch(request,{
+                method: "PUT",
+                body: data,
+                headers: {
+                    "Content-Type": "application/json" }
+
+            })
+            window.onload = function(){
+                cargarDepartamentos();
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Update departamento</h1>
+    Id: <input type="number" id="cajaid"/><br/>
+    Nombre: <input type="text" id="cajanombre"/><br/>
+    Localidad: <input type="text" id="cajalocalidad"/><br/>
+    <button onclick="insertarDepartamento()">Insertar</button>
+</body>
+</html>

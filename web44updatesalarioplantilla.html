@@ -4,13 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script>
+        let url ="https://apiplantillacore.azurewebsites.net/"
+        async function incrementarSalario() {
+            let cajafuncion = document.getElementById("cajafuncion");
+            let cajaincremento = document.getElementById("cajaincremento");
+            let funcion = cajafuncion.value;
+            let incremento = cajaincremento.value;
+            let request = `${url}api/plantilla/${funcion}/${incremento}`;
+            let response = await fetch(request,{
+                method: "PUT",
+                body: "informacion"
+            });
+            console.log(response);
+            let mensaje = document.getElementById("mensaje");
+            mensaje.innerHTML = "Datos actualizados";
+        }
+    </script>
 </head>
 <body>
     <h1>Update salario plantilla</h1> 
+    <a href="web43plantilla.html">Ir a plantilla</a>
+    <h2 id="mensaje"></h2>
     INTRODUZCA FUNCION:
     <input type="text" id="cajafuncion"/> <br/>
     INCREMENTO SALARIAL: 
     <input type="number" id="cajaincremento"/><br/>
-    <button>Incrementar salarios</button>
+    <button onclick="incrementarSalario()">Incrementar salarios</button>
 </body>
 </html>
