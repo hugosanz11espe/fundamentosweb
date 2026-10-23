@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+      let url="https://apicruddoctores.azurewebsites.net/"
+        async function insertarDoctor() {
+           let request = url + "api/Doctores"  
+           let apellido = document.getElementById("cajaapellido").value;
+           let iddoctor = document.getElementById("cajaiddoctor").value;
+           let idhospital = document.getElementById("cajaidhospital").value;
+           let especialidad = document.getElementById("cajaespecialidad").value;
+           let salario = document.getElementById("cajasalario").value;
+            
+           let nuevo = {
+                "idDoctor": parseInt(iddoctor),
+                "idHospital": parseInt(idhospital),
+                "apellido": apellido,
+                "especialidad": especialidad,
+                "salario": parseInt(salario)
+}
+        
+        let data= JSON.stringify(nuevo);
+        let response= await fetch(request, {
+               method: "POST",
+              body: data,
+               headers: { 
+                "Content-Type": "application/json" }
+               })
+        }
+        async function modificarDoctor() {
+           let request = url + "api/Doctores";
+           let apellido = document.getElementById("cajaapellido").value;
+           let iddoctor = document.getElementById("cajaiddoctor").value;
+           let idhospital = document.getElementById("cajaidhospital").value;
+           let especialidad = document.getElementById("cajaespecialidad").value;
+           let salario = document.getElementById("cajasalario").value;
+
+           let doctor = {
+                 "idDoctor": parseInt(iddoctor),
+                 "idHospital": parseInt(idhospital),
+                 "apellido": apellido,
+                 "especialidad": especialidad,
+                 "salario": parseInt(salario)
+           }
+           let data = JSON.stringify(doctor);
+           let response = await fetch(request, {
+                method: "PUT",
+                body: data,
+                headers: {
+                    "Content-Type": "application/json"
+                }
+           });
+           await cargarDoctores();
+        }
+        async function eliminarDoctor() {
+            let iddoctor = document.getElementById("cajaiddoctor").value;
+            let request = url + "api/Doctores/" + iddoctor;
+            let response = await fetch(request, {
+                method: "DELETE"
+            });
+            await cargarDoctores();
+        }
+        async function cargarDoctores() {
+            let request = url + "api/doctores";
+            let response= await fetch(request);
+            let datos = await response.json();
+            let filas = "";
+            for(let doctor of datos){
+                   filas += `
+                   <tr>
+                       <td>${doctor.idDoctor}</td>
+                       <td>${doctor.idHospital}</td>
+                       <td>${doctor.apellido}</td>
+                       <td>${doctor.especialidad}</td>
+                       <td>${doctor.salario}</td>
+                       </tr>
+                       `
+                       
+                  
+            }
+           let tabla = document.getElementById("tabladoctores");
+           tabla.innerHTML = filas;
+           
+        }    
+        window.onload= function() {
+            cargarDoctores();
+        }
+    </script>
+</head>
+<body>
+    <h1>Insertar doctor</h1>
+    Id doctor: <input type="number" id="cajaiddoctor"/>
+    Id hospital: <input type="number" id="cajaidhospital"/>
+    Apellido: <input type="text" id="cajaapellido"/>
+    Especialidad: <input type="text" id="cajaespecialidad"/>
+    Salario: <input type="number" id="cajasalario"/> <br/>
+    <button onclick ="insertarDoctor()">Insertar</button>  
+    <button onclick="modificarDoctor()">Modificar doctor</button>
+    <button onclick="eliminarDoctor()">Eliminar doctor</button>
+    <table id="tabladoctores" border="1"></table>
+</body>
+</html>
